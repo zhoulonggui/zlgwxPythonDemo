@@ -26,6 +26,7 @@ def start_project(_args):
         RegUtil.winreg_right_menu()
     except Exception:
         # ui_logger.error(traceback.format_exc())
+        print('write right menu reg error.')
         pass
     from ui.page.mainwin.start_ui import StartUI
     _win = StartUI(title=pro_name, _args=_args)
