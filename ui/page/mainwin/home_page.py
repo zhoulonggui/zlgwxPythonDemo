@@ -5,10 +5,14 @@
 # IDE: PyCharm
 # desc: 
 # version: v1.0
+import traceback
+
 import wx
 
+from comm.logger_util import ui_logger
 from ui.components.color_comm import ColorComm
 from ui.components.event_cfg import MY_EVT_LEFT_CLICK_BINDER
+from ui.components.message_box import MessageBox
 from ui.components.rounded_button import RoundedButton
 from ui.components.rounded_panel import RoundedPanel
 
@@ -27,4 +31,12 @@ class HomePage(wx.Panel):
         home_page.SetSizer(content_sizer)
 
     def test_click(self, event):
-        wx.MessageBox(f'Click...{event.GetEventObject().get_value()}')
+        # wx.MessageBox(f'Click...{event.GetEventObject().get_value()}')
+        try:
+            MessageBox(message=f'Click...{event.GetEventObject().get_value()}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                               f'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                               f'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+                               f'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        except Exception:
+            ui_logger.error(traceback.format_exc())
+

@@ -59,7 +59,7 @@ class StartUI(wx.Frame):
             menu_btn.Bind(MY_EVT_LEFT_CLICK_BINDER, self.on_top_menu_click)
             top_sizer.Add(menu_btn, 0, wx.CENTER | wx.LEFT, 5)
 
-        close_max_min_btn = CloseMaxMinButton(top_panel, p_win=self, size=(84, 32))
+        close_max_min_btn = CloseMaxMinButton(top_panel, size=(84, 32))
 
         top_sizer.Add((-1, -1), 1)
         top_sizer.Add(close_max_min_btn, 0, wx.CENTER | wx.RIGHT, 5)
