@@ -5,7 +5,6 @@
 # IDE: PyCharm
 # desc: 
 # version: v1.0
-import win32api
 from win32api import MonitorFromPoint, GetMonitorInfo
 import wx
 
@@ -15,13 +14,9 @@ from ui.components.color_comm import ColorComm
 
 
 class CloseMaxMinButton(wx.Panel):
-    # def __init__(self, parent, p_win, size=None):
     def __init__(self, parent, size=None):
         super(CloseMaxMinButton, self).__init__(parent, wx.ID_ANY, size=size)
         self.SetTransparent(200)
-        # self.old_size = p_win.GetSize()
-        # self.is_max = False
-        # self._parent = p_win
         self._parent = parent
         self._close_button = wx.Button(self, -1, label='X', size=(28, 28), style=wx.NO_BORDER)
         self._min_button = wx.Button(self, wx.ID_ANY, label='一', size=(28, 28), style=wx.NO_BORDER)
@@ -49,7 +44,6 @@ class CloseMaxMinButton(wx.Panel):
     def _on_close(self, event):
         ui_logger.info('close win')
         self._parent.Close()
-        # self._parent.Destroy()
 
     def _on_leave(self, event):
         _obj = event.GetEventObject()
@@ -61,23 +55,6 @@ class CloseMaxMinButton(wx.Panel):
 
     def _on_max(self, event):
         ui_logger.info(f'max win')
-        self.old_size = self._parent.GetSize()
-        ui_logger.info(self.old_size)
-        # _win_idx = wx.Display.GetFromWindow(self)
-        # _rect = wx.Display(_win_idx).GetGeometry()
-        # _monitor = win32api.GetMonitorInfo(MonitorFromPoint((0, 0)))
-        # ui_logger.info(_monitor)
-        # if not self.is_max:
-        #     self.is_max = True
-        #     if not self._parent.IsShown():
-        #         self._parent.Show()
-        #     self._parent.Raise()
-        #     self._parent.Maximize(True)
-        # else:
-        #     self.is_max = False
-        #     self._parent.SetSize(self.old_size)
-        #     self._parent.Raise()
-        #     self._parent.Maximize(False)
         rtx = wx.Display.GetFromWindow(self)
         rect = wx.Display(rtx).GetGeometry()
         monitor_info = GetMonitorInfo(MonitorFromPoint((rect[0], rect[1])))
@@ -88,6 +65,4 @@ class CloseMaxMinButton(wx.Panel):
 
     def _on_min(self, event):
         ui_logger.info(f'min win')
-        # self.old_size = self.GetSize()
-        # self._parent.Iconize(True)
         self._parent.Iconize()

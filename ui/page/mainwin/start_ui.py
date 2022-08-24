@@ -25,6 +25,7 @@ class StartUI(wx.Frame):
         _size = WinUtil.get_screen_size()
         # style=0 去掉顶部菜单栏 工具栏 自定义实现
         super(StartUI, self).__init__(None, wx.ID_ANY, title=title, size=_size, pos=(0, 0), style=0)
+        self.SetBackgroundColour(ColorComm.WHITE)
         self.page_cache = {}
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         self.old_size = _size
@@ -40,14 +41,14 @@ class StartUI(wx.Frame):
         self.Layout()
 
     def init_top(self):
-        top_panel = wx.Panel(self, wx.ID_ANY, size=(-1, 42))
-        top_panel.SetBackgroundColour(ColorComm.WHITE)
+        # top_panel = wx.Panel(self, wx.ID_ANY, size=(-1, 42))
+        # top_panel.SetBackgroundColour(ColorComm.WHITE)
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        icon = wx.StaticBitmap(top_panel, wx.ID_ANY, wx.Image('images/icon.png').ConvertToBitmap())
+        icon = wx.StaticBitmap(self, wx.ID_ANY, wx.Image('images/icon.png').ConvertToBitmap())
         # icon.SetBackgroundColour(ColorComm.BLUE_PURPLE)
         top_sizer.Add(icon, 0, wx.CENTER | wx.LEFT, 5)
 
-        top_left_panel = wx.Panel(top_panel, wx.ID_ANY)
+        top_left_panel = wx.Panel(self, wx.ID_ANY)
         _app_name = SettingUtil.get_pro_name()
         _app_name_static = wx.StaticText(top_left_panel, label=_app_name)
         _app_name_static.SetFont(FontComm.FONT_BOLD_13)
@@ -55,16 +56,15 @@ class StartUI(wx.Frame):
 
         menu_lst = ['样例', '设置', '帮助']
         for menu_name in menu_lst:
-            menu_btn = TopMenuButton(top_panel, size=(55, 28), label=menu_name, font=FontComm.FONT_NORMAL_14)
+            menu_btn = TopMenuButton(self, size=(55, 28), label=menu_name, font=FontComm.FONT_NORMAL_14)
             menu_btn.Bind(MY_EVT_LEFT_CLICK_BINDER, self.on_top_menu_click)
             top_sizer.Add(menu_btn, 0, wx.CENTER | wx.LEFT, 5)
 
-        close_max_min_btn = CloseMaxMinButton(top_panel, size=(84, 32))
+        close_max_min_btn = CloseMaxMinButton(self, size=(84, 32))
 
         top_sizer.Add((-1, -1), 1)
         top_sizer.Add(close_max_min_btn, 0, wx.CENTER | wx.RIGHT, 5)
-        top_panel.SetSizer(top_sizer)
-        return top_panel
+        return top_sizer
 
     def on_top_menu_click(self, event):
         btn_obj = event.GetEventObject()

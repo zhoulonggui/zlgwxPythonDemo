@@ -22,21 +22,11 @@ class MessageBox(wx.Dialog):
         wx.Dialog.__init__(self, frame, -1, size=size, style=wx.FRAME_SHAPED | wx.NO_BORDER | wx.FRAME_NO_TASKBAR)
         self.SetSize(frame.GetSize())
         self.SetPosition(frame.GetPosition())
-        self.SetTransparent(255 * 0.3)
-        self.SetBackgroundColour(wx.RED)
+        self.SetTransparent(255 * 0.5)
+        self.SetBackgroundColour(ColorComm.DEEP_GRAY)
         self.select = None
         self.Show()
         dlg = ZScrollDialog(self, title, message, btn_lst)
-        # dlg.Show()
-        # if dlg.ShowModal() == wx.ID_OK:
-        #     self.select = dlg.select
-        #     dlg.Destroy()
-        #     self.Destroy()
-        # else:
-        #     try:
-        #         self.Destroy()
-        #     except Exception:
-        #         pass
         dlg.ShowWindowModal()
         self.select = dlg.select
         ui_logger.info(f'MessageBox.select {self.select}')
@@ -55,11 +45,10 @@ class ZScrollDialog(wx.Dialog):
         self.btn_lst = btn_lst
         self.delta = (0, 0)
         self.select = None
-        self.set_shape()
         self.Bind(wx.EVT_LEFT_DOWN, self.on_left_down)
         self.Bind(wx.EVT_MOTION, self.on_motion)
         self.load_page()
-        # self.Show()
+        self.set_shape()
 
     def load_page(self):
         main_sizer = wx.BoxSizer(wx.VERTICAL)
@@ -115,9 +104,11 @@ class ZScrollDialog(wx.Dialog):
 
     def set_shape(self):
         w, h = self.GetSize()
+        ui_logger.info(f'w {w} h {h}')
         bmp = wx.Bitmap(w, h)
         dc = wx.BufferedDC(None, bmp)
-        dc.SetBackground(wx.Brush(ColorComm.GLOBAL_BG))
+        dc.SetBackground(wx.Brush(ColorComm.LIGHT_GREEN))
         dc.Clear()
-        dc.DrawRoundedRectangle(0, 0, w - 1, w - 1, 4)
-        self.SetShape(wx.Region(bmp, wx.GREEN))
+        dc.DrawRoundedRectangle(0, 0, w - 1, h - 1, 4)
+        regin = wx.Region(bmp, wx.RED)
+        self.SetShape(regin)
