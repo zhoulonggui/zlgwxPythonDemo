@@ -40,6 +40,7 @@ class ZScrollDialog(wx.Dialog):
                            style=wx.FRAME_SHAPED | wx.NO_BORDER | wx.FRAME_NO_TASKBAR | wx.STAY_ON_TOP)
         self.Centre(wx.BOTH)
         self.parent = parent
+        self.SetBackgroundColour(ColorComm.WHITE)
         self.title = title
         self.message = message
         self.btn_lst = btn_lst
@@ -53,21 +54,21 @@ class ZScrollDialog(wx.Dialog):
     def load_page(self):
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        top_text = wx.StaticText(self, id=wx.ID_ANY, label=self.title, size=(self.GetSize()[0] - 45, 32))
+        top_text = wx.StaticText(self, id=wx.ID_ANY, label=self.title)
         right_btn = CloseMaxMinButton(self, size=(40, 32))
         right_btn._min_button.Hide()
         right_btn._max_button.Hide()
-        top_sizer.Add(top_text, 0, wx.LEFT | wx.CENTER, 5)
-        # top_sizer.Add((-1, -1), 1)
-        top_sizer.Add(right_btn, 0)
+        top_sizer.Add(top_text, 0, wx.ALIGN_CENTRE_VERTICAL)
+        top_sizer.Add((1, -1), 1, wx.EXPAND)
+        top_sizer.Add(right_btn, 0, wx.RIGHT, -8)
         bottom_sizer = wx.BoxSizer(wx.HORIZONTAL)
         content_text = self.create_message()
         for btn_name in self.btn_lst:
             _button = RoundedButton(self, label=btn_name, size=(50, 28))
             _button.Bind(MY_EVT_LEFT_CLICK_BINDER, self.on_btn_click)
             bottom_sizer.Add(_button, 0, wx.ALL, 10)
-        main_sizer.Add(top_sizer, 0, wx.CENTER)
-        main_sizer.Add(content_text, 1, wx.EXPAND)
+        main_sizer.Add(top_sizer, 0, wx.EXPAND | wx.LEFT, 5)
+        main_sizer.Add(content_text, 1, wx.EXPAND | wx.LEFT | wx.RIGHT, 4)
         main_sizer.Add(bottom_sizer, 0, wx.CENTER)
         self.SetSizer(main_sizer)
 
@@ -78,7 +79,7 @@ class ZScrollDialog(wx.Dialog):
 
         ct.BeginParagraphSpacing(0, 20)
         ct.BeginAlignment(wx.TEXT_ALIGNMENT_CENTRE)
-        ct.BeginFontSize(11)
+        ct.BeginFontSize(9)
         ct.WriteText(self.message)
         ct.EndFontSize()
 
@@ -103,12 +104,20 @@ class ZScrollDialog(wx.Dialog):
             self.Move(fp)
 
     def set_shape(self):
+        # width, height = self.GetSize()
+        # bmp = wx.EmptyBitmap(width, height)
+        # dc = wx.BufferedDC(None, bmp)
+        # dc.SetBackground(wx.Brush(wx.Colour(100, 100, 100), wx.SOLID))
+        # dc.Clear()
+        # dc.DrawRoundedRectangle(0, 0, width - 1, height - 1, 4)
+        # r = wx.Region(bmp, wx.Colour(100,100,100))
+        # self.hasShape = self.SetShape(r)
         w, h = self.GetSize()
         ui_logger.info(f'w {w} h {h}')
         bmp = wx.Bitmap(w, h)
         dc = wx.BufferedDC(None, bmp)
-        dc.SetBackground(wx.Brush(ColorComm.LIGHT_GREEN))
+        dc.SetBackground(wx.Brush(wx.Colour(0, 0, 0)))
         dc.Clear()
         dc.DrawRoundedRectangle(0, 0, w - 1, h - 1, 4)
-        regin = wx.Region(bmp, wx.RED)
-        self.SetShape(regin)
+        regin = wx.Region(bmp, wx.Colour(0, 0, 0))
+        self.hasShape = self.SetShape(regin)

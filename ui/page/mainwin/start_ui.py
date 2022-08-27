@@ -62,7 +62,7 @@ class StartUI(wx.Frame):
 
         close_max_min_btn = CloseMaxMinButton(self, size=(84, 32))
 
-        top_sizer.Add((-1, -1), 1)
+        top_sizer.Add((1, -1), 1)
         top_sizer.Add(close_max_min_btn, 0, wx.CENTER | wx.RIGHT, 5)
         return top_sizer
 

@@ -9,7 +9,7 @@ from win32api import MonitorFromPoint, GetMonitorInfo
 import wx
 
 from comm.logger_util import ui_logger
-from ui.components import color_comm
+# from ui.components import color_comm
 from ui.components.color_comm import ColorComm
 
 
@@ -18,7 +18,7 @@ class CloseMaxMinButton(wx.Panel):
         super(CloseMaxMinButton, self).__init__(parent, wx.ID_ANY, size=size)
         self.SetTransparent(200)
         self._parent = parent
-        self._close_button = wx.Button(self, -1, label='X', size=(28, 28), style=wx.NO_BORDER)
+        self._close_button = wx.Button(self, wx.ID_ANY, label='X', size=(28, 28), style=wx.NO_BORDER)
         self._min_button = wx.Button(self, wx.ID_ANY, label='一', size=(28, 28), style=wx.NO_BORDER)
         self._max_button = wx.Button(self, wx.ID_ANY, label='口', size=(28, 28), style=wx.NO_BORDER)
         self._close_button.SetBackgroundColour(ColorComm.WHITE)

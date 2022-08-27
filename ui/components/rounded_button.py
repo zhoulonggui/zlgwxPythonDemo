@@ -78,7 +78,7 @@ class RoundedButton(wx.Panel):
         gc.DrawRectangle(0, 0, _size[0], _size[1])
         # 画圆角区域
         gc.SetBrush(wx.Brush(_bg_color))
-        gc.SetPen(wx.Pen(_bg_color, 1))
+        gc.SetPen(wx.Pen(ColorComm.LITTLE_BLUE, 1))
         _pos = int(self.round_val / 2)
         gc.DrawRoundedRectangle(_pos, _pos, _size[0] - self.round_val, _size[1] - self.round_val, self.round_val)
         return bit_map
