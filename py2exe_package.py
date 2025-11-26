@@ -14,7 +14,7 @@ sys.argv.append('py2exe')
 
 py2exe_options = {
     "includes": ["wx"],  # 引入界面库，需要额外添加
-    "dll_excludes": ["MSVCP90.dll"],  # 找不到dll时需要添加缺少的dll
+    "dll_excludes": ["MSVCP90.dll"],  # 用于指定不包含的动态链接库（DLL）文件的参数，常见于解决依赖冲突或冗余文件问题。
     "compressed": 1,  # 默认为0,1为指定压缩文件（library.zip）的行为；0为不压缩。
     "optimize": 2,
     # 打包优化，合法值是字符串（'','O','OO'）或者整型数字 (0, 1, or 2)。0时，不进行优化，压缩包大小较大，打包的编译文件为 .pyc；1时，进行少量优化，压缩包大小略小，打包的编译文件为 .pyo；2时，优化级别最高，压缩包大小也明显变小，打包的编译文件为 .pyo

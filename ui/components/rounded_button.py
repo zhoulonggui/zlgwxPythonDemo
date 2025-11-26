@@ -37,7 +37,7 @@ class RoundedButton(wx.Panel):
 
     def init_button(self):
         self.cache_bt_map = {
-            'leave': self.draw_button(self.deep_bg_color, self.bg_color, ColorComm.FONT_COLOR),
+            'leave': self.draw_button(self.deep_bg_color, self.bg_color, ColorComm.WHITE),
             'enter': self.draw_button(self.deep_bg_color, ColorComm.WHITE, ColorComm.FONT_COLOR)
         }
 

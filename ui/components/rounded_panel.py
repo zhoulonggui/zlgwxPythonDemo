@@ -12,8 +12,11 @@ from ui.components.color_comm import ColorComm
 
 
 class RoundedPanel(wx.Panel):
-    def __init__(self, parent, round_val=None, size=None, deep_bg_color=None, bg_color=None):
-        super(RoundedPanel, self).__init__(parent, wx.ID_ANY, size=size or wx.DefaultSize)
+    def __init__(self, parent, round_val=None, size=None, deep_bg_color=None, bg_color=None, style=None):
+        if style:
+            super(RoundedPanel, self).__init__(parent, wx.ID_ANY, size=size or wx.DefaultSize, style=style)
+        else:
+            super(RoundedPanel, self).__init__(parent, wx.ID_ANY, size=size or wx.DefaultSize)
         self.deep_bg_color = deep_bg_color or ColorComm.WHITE_GRAY_BG
         self.bg_color = bg_color or ColorComm.WHITE_BG
         self.bit_map = None

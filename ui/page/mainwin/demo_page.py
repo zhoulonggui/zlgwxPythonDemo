@@ -13,6 +13,7 @@ from ui.components.event_cfg import MY_EVT_LEFT_CLICK_BINDER
 from ui.components.font_comm import FontComm
 from ui.components.menu_button import TopMenuButton
 from ui.components.rounded_panel import RoundedPanel
+from ui.components.titile_panel import ZTitle, ZLine
 
 
 class DemoPage(wx.Panel):
@@ -65,10 +66,9 @@ class DemoPage(wx.Panel):
     def load_right_content(self):
         self.right_pages = {
             '颜色面板': self.load_color_panel(),
-            '按钮组件': RoundedPanel(self.right_content, round_val=100, bg_color=ColorComm.LITTLE_BLUE,
+            '按钮组件': RoundedPanel(self.right_content, round_val=200, bg_color=ColorComm.LITTLE_ORANGE,
                                      size=(500, 500)),
-            '弹窗组件': RoundedPanel(self.right_content, round_val=200, bg_color=ColorComm.LITTLE_ORANGE,
-                                     size=(500, 500)),
+            '弹窗组件': self.load_dialog_demo_page(),
             '文本组件': RoundedPanel(self.right_content, round_val=300, bg_color=ColorComm.LITTLE_PURPLE,
                                      size=(500, 500)),
             '面板组件': RoundedPanel(self.right_content, round_val=400, bg_color=ColorComm.LIGHT_GREEN, size=(500, 500))
@@ -110,3 +110,14 @@ class DemoPage(wx.Panel):
 
         color_panel.SetSizer(color_sizer)
         return color_panel
+
+    def load_dialog_demo_page(self):
+        dialog_panel = RoundedPanel(self.right_content, round_val=2, size=(1000, 800))
+        msg_title = ZTitle(dialog_panel, u'提示框', font=FontComm.FONT_BOLD_15, size=(dialog_panel.GetSize()[0], 26))
+        msg_line = ZLine(dialog_panel)
+        dialog_sizer = wx.BoxSizer(wx.VERTICAL)
+        dialog_sizer.Add(msg_title, 0, wx.EXPAND | wx.LEFT | wx.TOP, 16)
+        dialog_sizer.Add(msg_line, 0, wx.EXPAND)
+        dialog_panel.SetSizer(dialog_sizer)
+        dialog_panel.Layout()
+        return dialog_panel

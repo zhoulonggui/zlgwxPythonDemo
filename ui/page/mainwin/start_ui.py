@@ -16,6 +16,7 @@ from ui.components.font_comm import FontComm
 from ui.components.menu_button import TopMenuButton
 from ui.components.my_notebook import NoteBook
 from ui.page.mainwin.demo_page import DemoPage
+from ui.page.mainwin.game_page import GamePage
 from ui.page.mainwin.home_page import HomePage
 from ui.util.window_util import WinUtil
 
@@ -54,7 +55,7 @@ class StartUI(wx.Frame):
         _app_name_static.SetFont(FontComm.FONT_BOLD_13)
         top_sizer.Add(top_left_panel, 0, wx.CENTER | wx.LEFT, 5)
 
-        menu_lst = ['样例', '设置', '帮助']
+        menu_lst = ['样例', '设置', '小游戏', '帮助']
         for menu_name in menu_lst:
             menu_btn = TopMenuButton(self, size=(55, 28), label=menu_name, font=FontComm.FONT_NORMAL_14)
             menu_btn.Bind(MY_EVT_LEFT_CLICK_BINDER, self.on_top_menu_click)
@@ -69,6 +70,7 @@ class StartUI(wx.Frame):
     def on_top_menu_click(self, event):
         btn_obj = event.GetEventObject()
         page_name = btn_obj.get_value()
+        # 首先判断page是否存在，避免重复绑定，导致界面遮挡等异常情况
         if page_name in self.page_cache and self.content_book.get_page_index(page_name) != -1:
             self.content_book.set_selection_by_name(page_name)
             return
@@ -79,6 +81,9 @@ class StartUI(wx.Frame):
             self.add_page(wx.Panel(self.content_book, size=self.GetSize()), page_name)
         elif page_name == '帮助':
             self.add_page(wx.Panel(self.content_book, size=self.GetSize()), page_name)
+        elif page_name == '小游戏':
+            game_page = GamePage(self.content_book)
+            self.add_page(game_page, page_name)
 
     def add_page(self, page_win, page_name):
         if page_name in self.page_cache and self.content_book.get_page_index(page_name) != -1:
