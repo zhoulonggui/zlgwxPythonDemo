@@ -14,7 +14,7 @@ fh = logging.FileHandler("log/access.log")
 fh.setLevel(logging.DEBUG)
 # 建立一个streamhandler来把日志打在CMD窗口上，级别为error以上
 ch = logging.StreamHandler()
-ch.setLevel(logging.ERROR)
+ch.setLevel(logging.INFO)
 # 设置日志格式
 formatter = logging.Formatter('[%(asctime)s][%(module)s.%(funcName)s %(lineno)d] %(levelname)s:%(message)s')
 ch.setFormatter(formatter)

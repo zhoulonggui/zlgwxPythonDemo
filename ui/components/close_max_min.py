@@ -76,6 +76,7 @@ class CloseMaxMinButton(wx.Panel):
             self._parent.SetSize(self.old_size)
             self._parent.Raise()
             self._parent.Maximize(False)
+        self._parent.Refresh()
 
     def _on_min(self, event):
         ui_logger.info(f'min win')

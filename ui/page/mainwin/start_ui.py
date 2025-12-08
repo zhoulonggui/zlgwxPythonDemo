@@ -18,13 +18,15 @@ from ui.components.my_notebook import NoteBook
 from ui.page.mainwin.demo_page import DemoPage
 from ui.page.mainwin.home_page import HomePage
 from ui.util.window_util import WinUtil
+from comm.logger_util import ui_logger
 
 
 class StartUI(wx.Frame):
     def __init__(self, title='ABC', _args=None):
-        _size = WinUtil.get_screen_size()
-        # style=0 去掉顶部菜单栏 工具栏 自定义实现
-        super(StartUI, self).__init__(None, wx.ID_ANY, title=title, size=_size, pos=(0, 0), style=0)
+        _size, _pos = WinUtil.get_screen_size()
+        # style=0 去掉顶部菜单栏 工具栏 自定义实现 style=wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER
+        super(StartUI, self).__init__(None, wx.ID_ANY, title=title, size=_size, pos=_pos if _pos else (100, 100),
+                                      style=0)
         self.page_cache = {}
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         self.old_size = _size
@@ -38,6 +40,32 @@ class StartUI(wx.Frame):
         self.SetSizer(main_sizer)
         self.Refresh()
         self.Layout()
+        _top.Bind(wx.EVT_LEFT_DOWN, self.on_mouse_down)
+        _top.Bind(wx.EVT_LEFT_UP, self.on_mouse_up)
+        _top.Bind(wx.EVT_MOTION, self.on_mouse_motion)
+        self.dragging = False
+        self.offset = wx.Point()
+
+    def on_mouse_down(self, event):
+        self.dragging = True
+        self.offset = event.GetPosition()
+
+    def on_mouse_up(self, event):
+        self.dragging = False
+
+    def on_mouse_motion(self, event):
+        if not self.dragging:
+            return
+        if event.Dragging() and event.LeftIsDown():
+            # 计算新的位置
+            x, y = self.ClientToScreen(event.GetPosition())
+            x -= self.offset.x
+            y -= self.offset.y
+            # 调整偏移量以匹配窗口的实际移动，这里-10和-30是示例偏移，根据需要调整
+            # self.Move(x - 10, y - 30)
+            self.Move(x, y)
+            # 刷新窗口以显示新的位置
+            # self.Refresh()
 
     def init_top(self):
         top_panel = wx.Panel(self, wx.ID_ANY, size=(-1, 42))

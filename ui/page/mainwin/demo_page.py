@@ -25,7 +25,8 @@ class DemoPage(wx.Panel):
 
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.left_menu = self.load_left_menu()
-        self.right_content = wx.Panel(self, id=wx.ID_ANY)
+        my_size = self.GetSize()
+        self.right_content = wx.Panel(self, id=wx.ID_ANY, size=(my_size[0] - 180, my_size[1]))
         self.right_content_sizer = wx.BoxSizer(wx.VERTICAL)
         self.load_right_content()
         self.right_content.SetSizer(self.right_content_sizer)
@@ -66,7 +67,7 @@ class DemoPage(wx.Panel):
         self.right_pages = {
             '颜色面板': self.load_color_panel(),
             '按钮组件': RoundedPanel(self.right_content, round_val=100, bg_color=ColorComm.LITTLE_BLUE,
-                                     size=(500, 500)),
+                                     size=self.right_content.GetSize()),
             '弹窗组件': RoundedPanel(self.right_content, round_val=200, bg_color=ColorComm.LITTLE_ORANGE,
                                      size=(500, 500)),
             '文本组件': RoundedPanel(self.right_content, round_val=300, bg_color=ColorComm.LITTLE_PURPLE,
